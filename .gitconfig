@@ -1,0 +1,15 @@
+[user]
+	name = Daniel Werner
+	email = daniel.d.werner@googlemail.com
+[color]
+	diff = auto
+	status = auto
+	branch = auto
+
+[alias]
+	co = checkout
+	index = diff --cached
+	log = log --decorate
+	amend = commit --amend -C HEAD
+[apply]
+	whitespace = nowarn

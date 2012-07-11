@@ -1,0 +1,38 @@
+#
+# System-wide NetHack configuration file for tty-based NetHack.
+#
+
+OPTIONS=windowtype:tty,toptenwin,hilite_pet,hpmon
+OPTIONS=fixinv,safe_pet,sortpack,tombstone,color
+OPTIONS=verbose,news,fruit:potato
+OPTIONS=dogname:Lyco
+OPTIONS=catname:Tiger
+OPTIONS=horsename:Steed
+OPTIONS=pickup_types:$
+OPTIONS=nomail
+
+# demitsu 2005-08-07
+OPTIONS=number_pad
+OPTIONS=decgraphics
+OPTIONS=disclose:+i +a +v +g +c
+OPTIONS=paranoid_hit
+OPTIONS=showexp
+
+
+# Enable this if you want to see your inventory sorted in alphabetical
+# order by item instead of by index letter:
+# OPTIONS=sortloot:full
+# or if you just want containers sorted:
+# OPTIONS=sortloot:loot
+
+#
+# Some sane menucolor defaults
+#
+
+OPTIONS=menucolors
+MENUCOLOR=" blessed "=yellow
+MENUCOLOR=" holy "=yellow
+MENUCOLOR=" uncursed "=green
+MENUCOLOR=" cursed "=red
+MENUCOLOR=" unholy "=red
+MENUCOLOR=" cursed .* (being worn)"=orange&underline
