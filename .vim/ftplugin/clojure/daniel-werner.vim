@@ -5,3 +5,4 @@ let vimclojure#SplitSize = 10
 
 let g:vimclojure#ParenRainbow = 1
 let g:vimclojure#DynamicHighlighting = 1
+let g:clj_highlight_builtins = 1

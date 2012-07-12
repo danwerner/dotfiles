@@ -9,3 +9,4 @@ set autoindent          " copy indent from previous line
 set nosmartindent       " detrimental to Python code due to syntax
 set nocindent           " cindent is NOT smart
 
+nmap <buffer> <F9>  :!sh %<CR>

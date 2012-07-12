@@ -3,10 +3,15 @@
 highlight Normal guifg=gray90 guibg=black
 set background=dark
 
+" set background=light
+
 " gvim UI
 set guifont=Monospace\ 11
 set guioptions=acig	" no menu, no toolbar
 set mouse=a
+
+" Disable cursor blinking
+set guicursor+=a:blinkon0
 
 " Make shift-insert work like in Xterm
 map <S-Insert> <MiddleMouse>

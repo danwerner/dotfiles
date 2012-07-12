@@ -1,9 +1,14 @@
-" Demitsu's Personal .vimrc
+" .vimrc
+" Daniel Werner
 
-" VIM
 set nocompatible
 
-call pathogen#runtime_append_all_bundles() 
+" Pathogen
+filetype off
+runtime bundle/vim-pathogen/autoload/pathogen.vim
+call pathogen#infect()
+
+syntax on
 
 " My PC is fast enough, do syntax highlight syncing from start
 autocmd BufEnter * :syntax sync fromstart
@@ -15,8 +20,8 @@ set dir=~/.vim/sessions
 
 filetype on
 if has("autocmd")
-	filetype plugin on
-	filetype indent on
+  filetype plugin on
+  filetype indent on
 endif
 
 " Highlight NBSP
@@ -35,6 +40,12 @@ augroup filetype
 	au BufRead reportbug-*		set ft=mail
 augroup END
 
+" Spell/Syntax checker
+" defaults -- change if desired
+"if has("gui_running")
+"  highlight SpellBad term=underline gui=undercurl guisp=Red
+"endif
+
 " Leader
 " ------
 " sets leader to ',' and localleader to "\"
@@ -44,7 +55,6 @@ let maplocalleader="\\"
 " Preferences
 set shortmess=filmnrxOsI
 "set ignorecase				" case insens. search
-"set list					" show whitespace
 set history=100
 "set confirm
 set clipboard+=unnamed
@@ -52,12 +62,19 @@ set ffs=unix,dos,mac		" order is significant
 set iskeyword+=_,$,@,%,#,-
 
 
+"Thank you FunnyMan3595
+"http://www.reddit.com/r/programming/comments/9wlb7/proggitors_do_you_like_the_idea_of_indented/c0esam1
+set list
+set lcs=tab:»·   "show tabs
+set lcs+=trail:· "show trailing spaces
+
 " Aides
 set showmatch			" show matching brackets
-set matchtime=5				" for 1/2 second
+set matchtime=5			" for 1/2 second
 set incsearch			" highlight while typing
-set scrolloff=3			" scroll when so from border
+set scrolloff=3			" scroll when x lines from border
 "set statusline=%F%M%r%h%w\ %{&ff}\ %y\ %02.2B\ %03.3b\ %l,%c%v/%L\ \ %p%%
+set statusline=%F%M%r%h%w\ %{&ff}\ %y\ %02.2B\ %03.3b\ %{fugitive#statusline()}\ %l,%c%V/%L\ \ %p%%
 set formatoptions=tcr2M1	" fo-table
 
 
@@ -68,7 +85,7 @@ set wildmenu
 set ruler
 "set cmdheight=2
 set lazyredraw
-"set hidden			" too easy to forget
+set hidden			" hide buffers instead of unloading them
 set backspace=2			" backspace=indent,eol, start
 set mouse=vhr			" visual, help, hit-r-prompts
 set report=0			" always report lines
@@ -77,14 +94,17 @@ set visualbell			" use visual bell
 set fillchars=vert:\|,stl:\ ,stlnc:\ 
 set hlsearch			" hls
 
+nmap <C-H> :nohls<CR>
+
 
 " Files & Backups
 set nobackup
 set writebackup
-"set directory=~/tmp,.,/var/tmp,/tmp
+set directory=~/tmp,.,/var/tmp,/tmp
 
 
 " Theme
+" Replace programmer's highlights by respective lighter color.
 "set background=dark
 set background=light
 "highlight Comment	ctermfg=LightBlue
@@ -112,11 +132,16 @@ set nocindent			" cindent is NOT smart
 set textwidth=0
 set wrap			" visual line wrapping (doesn't change buffer)
 set wrapmargin=0
-set nojoinspaces			" insert 2x' ' after .?! on join
+"set joinspaces			" insert 2x' ' after .?! on join
 
 " Pasting
-set nopaste
-set pastetoggle=<f11>
+"set pastetoggle=<f11>
+
+" http://www.reddit.com/r/vim/comments/pkwkm/awesome_little_tweak_automatically_reindent_on/
+"nnoremap <leader>p p
+"nnoremap <leader>P P
+"nnoremap p p'[v']=
+"nnoremap P P'[v']=
 
 " Folding
 set foldenable
@@ -171,8 +196,24 @@ nmap Q gqap
 noremap <F7>    :w!<CR>:!aspell check %<CR>:e! %<CR>
 
 " Programming
-nmap  <F9>    :make %<CR>
-nmap	<C-F9>	:make
+"nmap    <F5>    :!sudo service apache2 restart<CR><CR>
+nmap    <F5>    :!touch lib/wsgi/mod_wsgi.py<CR><CR>
+nmap    <F9>    :make %<CR>
+nmap    <C-F9>  :make
+
+" Tabs
+nmap gn  :tabnew<CR>
+nmap gc  :tabc<CR>
+
+" Syntastic
+
+" Use the |:sign| interface to mark syntax errors
+let g:syntastic_enable_signs=1
+
+" When set to 1 the error window will be automatically
+" opened when errors are detected, and closed when none
+" are detected.
+let g:syntastic_auto_loc_list=1
 
 " Haskell - SHIM
 let g:shim_ghciPrompt = "^ghci>"
