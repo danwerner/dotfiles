@@ -1,0 +1,16 @@
+#!/bin/sh
+# trash -- Move files to ~/.Trash for deferred deletion
+
+TRASHDIR=$HOME/.local/share/Trash/files
+
+if ! [ -d "$TRASHDIR" ]; then
+	mkdir -p $TRASHDIR \
+	  || (echo "Cannot mkdir $TRASHDIR!" >&2; exit 1)
+	chmod 0700 $TRASHDIR \
+	  || (echo "Chmod 0700 on $TRASHDIR failed!" >&2; exit 1)
+fi
+
+mv "$@" $TRASHDIR
+
+du -hsx $TRASHDIR
+

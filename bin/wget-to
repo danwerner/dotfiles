@@ -1,0 +1,8 @@
+#!/bin/sh
+
+if [ $# != 2 ]; then
+    echo "usage: `basename "$0"` <url> <filename>"
+    exit 2
+fi
+
+exec wget -c -nv "$1" -O "$2" &

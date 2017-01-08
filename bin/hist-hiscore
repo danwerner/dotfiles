@@ -1,0 +1,7 @@
+#!/bin/sh
+
+if [ -z "$HISTFILE" ]; then
+    HISTFILE="$HOME/.bash_history"
+fi
+
+cat $HISTFILE | sort | cut -d ' ' -f 1 | uniq -c | sort -nr

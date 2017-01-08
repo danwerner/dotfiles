@@ -1,0 +1,10 @@
+#!/bin/sh
+# Resets some X settings back to default to counter display corruption.
+# Originally written in: 2005-09-30
+
+RES=1366x768
+
+xrandr -s $RES
+echo "Resolution: $RES"
+
+xgamma -gamma 1

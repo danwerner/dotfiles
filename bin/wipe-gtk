@@ -1,0 +1,10 @@
+zenity --question --title="Wipe" --text="These items will be permanently deleted:\n$@\nContinue?"
+
+if [ "$?" = 1 ] ; then
+	exit $?
+else
+	#shred -f -v -u -z "$file" | tee >(zenity --progress --pulsate)
+        echo wipe -frs "$@" | tee >(zenity --progress --pulsate)
+#	Uncomment to display finish notice as well as progress bar. 
+#	zenity --info --text="$file: shredding complete."
+fi
