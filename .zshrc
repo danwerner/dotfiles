@@ -23,7 +23,7 @@ export PS2='  %B>%b '
 ################################
 ## Variables
 
-export PATH="$HOME/bin:$HOME/.cabal/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin:/usr/games"
+export PATH="$HOME/bin:$HOME/.cabal/bin:$PATH"
 
 export EMAIL="daniel.d.werner@gmail.com"
 export MAIL="$HOME/mail/inbox"
@@ -119,6 +119,7 @@ alias apack='apack -v'
 alias aunpack='aunpack -v'
 
 alias gst='git status'
+alias gstl='git status | less'
 
 # Pipe less data through lesspipe first. This will activate extra
 # features like displaying rpm/deb-packages ...
@@ -202,3 +203,11 @@ unsetopt autocd extendedglob
 bindkey -e
 # End of lines configured by zsh-newuser-install
 #
+
+# Read configuration specific to this local machine
+#
+# Environment variables that should be set locally:
+#   EMAIL DEBEMAIL
+#
+localrc=$HOME/.zshrc.local
+[ -r $localrc ] && source $localrc
