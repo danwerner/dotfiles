@@ -1,9 +1,7 @@
 " .gvimrc
 
-highlight Normal guifg=gray90 guibg=black
-set background=dark
-
-" set background=light
+highlight Normal guifg=black guibg=white
+set background=light
 
 " gvim UI
 set guifont=Monospace\ 11
