@@ -1,0 +1,2 @@
+#!/bin/sh
+find . \( -name '*.java' -o -name '*.groovy' -o -name '*.scala' \) -print0 | xargs -0 grep --color=auto "$@"

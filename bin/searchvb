@@ -1,0 +1,2 @@
+#!/bin/sh
+find . \( -iname '*.bas' -o -iname '*.cls' -o -iname '*.frm' \) -print0 | xargs -0 grep --color=auto "$@"

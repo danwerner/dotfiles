@@ -1,0 +1,49 @@
+#!/usr/bin/env python
+
+"""combineimports
+
+Combines, sorts and indents symbols in Python import statements that span
+multiple lines. The lines to combine are taken from `stdin`.
+
+Can be used from e.g. vim or PyCharm (with IdeaVim plugin) by selecting
+multiple lines of symbols in visual line mode (V) and then executing
+:!combineimports
+
+Example: Turns this::
+
+    from mymodule import (
+        Person, Group, frobnicate, Apple, Banana, User,
+        create_foo_template,
+        update_config, Item, do_something_else)
+
+Into this::
+
+    from mymodule import (
+        Apple, Banana, Group, Item, Person, User, create_foo_template,
+        do_something_else, frobnicate, update_config)
+
+Please make sure you only select the lines containing the symbols, *not*
+the lines containing the import statement!
+"""
+
+import os
+import sys
+import textwrap
+
+MAXLINELEN = 78
+INDENT = 4
+
+
+def main():
+    text = sys.stdin.read()
+    text = text.replace('(', '').replace(')', '').replace('\\', '')
+    text = text.replace(',', ' ')
+    text = ', '.join(sorted(frozenset(text.split())))
+    lines = textwrap.wrap(text, width=MAXLINELEN - INDENT, break_long_words=False)
+    margin = INDENT*' '
+    lines = [margin + l for l in lines]
+    text = os.linesep.join(lines) + ')' + os.linesep
+    sys.stdout.write(text)
+
+if __name__ == '__main__':
+    main()
