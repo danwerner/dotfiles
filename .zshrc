@@ -25,7 +25,7 @@ export PS2='  %B>%b '
 
 export PATH="$HOME/bin:$HOME/.cabal/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin:/usr/games"
 
-export EMAIL="Daniel Werner <daniel.d.werner@gmail.com>"
+export EMAIL="daniel.d.werner@gmail.com"
 export MAIL="$HOME/mail/inbox"
 export MAILPATH="$MAIL:/var/mail/$USER"
 unset MAILCHECK
