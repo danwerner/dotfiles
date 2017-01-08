@@ -22,3 +22,6 @@
 [submodule ".vim/bundle/Better-CSS-Syntax-for-Vim"]
 	path = .vim/bundle/Better-CSS-Syntax-for-Vim
 	url = https://github.com/chrisyip/Better-CSS-Syntax-for-Vim
+[submodule ".vim/bundle/conque"]
+	path = .vim/bundle/conque
+	url = https://github.com/basepi/vim-conque.git
