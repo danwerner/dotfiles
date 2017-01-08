@@ -1,0 +1,2 @@
+#!/bin/sh
+[ -n "$HOME" ] && rm -fR "$HOME/.thumbnails/fail" "$HOME/.cache/thumbnails/fail"

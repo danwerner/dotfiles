@@ -1,0 +1,3 @@
+#!/bin/sh
+# Only one pass of zeroes, no overwriting with random data.
+shred -vuz -n 0 "$@" 2>&1 | grep -v ': renamed to ' 1>&2

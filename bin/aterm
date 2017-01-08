@@ -1,0 +1,20 @@
+#!/bin/sh
+
+exec /usr/bin/aterm -fg White -bg Black \
+                    -tr -trsb -vb +sb -si -sl 4096 -cr yellow \
+                    -tint Red \
+                    -fn 8x13 \
+                    $@
+
+# Options (- activates, + deactivates)
+# fg:	Foreground color
+# tr:	Pseudo-transparent background
+# trsb:	" " scrollbar
+# tint:	Pseudo transparency
+# vb:	visual bell
+# sb:	scrollbar
+# si:	inhibit scroll on output
+# sl:	scrollback buffer lines
+# sh:	darken/lighten background
+# cr:	cursor color
+# fn:	font name (7x14, 6x10, 6x13, 8x13, 9x15)

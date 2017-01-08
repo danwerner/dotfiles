@@ -1,0 +1,33 @@
+#!/bin/sh
+exec /usr/bin/urxvt \
+                    -fn "xft:DejaVu Sans Mono:pixelsize=14" \
+                    -j             \
+                    -tr            \
+                    +sb            \
+                    -sr            \
+                    -si            \
+                    -sk            \
+                    -ptab          \
+                    +bc            \
+                    -cr yellow     \
+                    -fg white      \
+                    -bg black      \
+                    -tint white    \
+                    -sl 2000       \
+                    "$@"
+
+# fn    fontlist
+# j     jump scrolling
+# tr    inherit parent window pixmap
+# fade  fade text % when focus is lost
+# sb    scrollbar
+# sr    scrollbar right-hand
+# si    scroll-to-bottom inhibit
+# sk    scroll-to-bottom on keypress
+# ptab  pastable tabs
+# bc    blink cursor
+# cr    cursor colour
+# fg    foreground colour
+# bg    background colour
+# tint  tint background
+# sl    scrollback buffer lines
