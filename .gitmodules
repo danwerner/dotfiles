@@ -16,3 +16,6 @@
 [submodule ".emacs.d/undo-tree"]
 	path = .emacs.d/undo-tree
 	url = http://www.dr-qubit.org/git/undo-tree.git
+[submodule ".vim/bundle/scss-syntax.vim"]
+	path = .vim/bundle/scss-syntax.vim
+	url = https://github.com/cakebaker/scss-syntax.vim
