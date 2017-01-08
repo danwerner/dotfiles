@@ -1,0 +1,2 @@
+#!/bin/sh
+find . \( -name '*.js' -o -name '*.jsx' \) -print0 | xargs -0 grep --color=auto "$@"

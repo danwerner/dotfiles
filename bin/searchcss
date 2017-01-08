@@ -1,0 +1,2 @@
+#!/bin/sh
+find . \( -name '*.css' -o -name '*.scss' -o -name '*.sass' -o -name '*.less' -o -name '*.gss' \) -print0 | xargs -0 grep --color=auto "$@"
