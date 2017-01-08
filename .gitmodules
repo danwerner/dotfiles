@@ -1,0 +1,12 @@
+[submodule ".vim/bundle.disabled/syntastic"]
+	path = .vim/bundle/syntastic
+	url = http://github.com/scrooloose/syntastic.git
+[submodule ".vim/bundle/pyflakes-vim"]
+	path = .vim/bundle/pyflakes-vim
+	url = http://github.com/kevinw/pyflakes-vim.git
+[submodule ".vim/bundle/vimclojure"]
+	path = .vim/bundle/vimclojure
+	url = http://github.com/kotarak/vimclojure.git
+[submodule ".vim/bundle/vim-scala"]
+	path = .vim/bundle/vim-scala
+	url = https://github.com/derekwyatt/vim-scala.git
