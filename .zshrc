@@ -1,5 +1,5 @@
 #
-# Demitsu's ZSH configuration
+# danwerner's ZSH configuration
 #
 
 # No %*$(#& audible bell!!
@@ -25,10 +25,6 @@ export PS2='  %B>%b '
 
 export PATH="$HOME/bin:$HOME/.cabal/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin:/usr/games"
 
-# IntelliJ IDEA
-export JDK_HOME="/usr/lib/jvm/java-6-sun/"
-export PATH="$PATH:$HOME/opt/idea-IC-93.94/bin"
-
 export EMAIL="Daniel Werner <daniel.d.werner@gmail.com>"
 export MAIL="$HOME/mail/inbox"
 export MAILPATH="$MAIL:/var/mail/$USER"
@@ -49,10 +45,10 @@ export PAGER="less"
 #export ftp_proxy=http://proxy:3128
 #export no_proxy="localhost"
 
-## Locale information
-export LANGUAGE="en_GB:en"      # Python doesn't parse this correctly
-export LANG="en_GB.UTF-8"
-unset LC_ALL
+## Locale information (disabled, should preferably be set by the OS)
+#export LANGUAGE="en_GB:en"      # Python doesn't parse this correctly
+#export LANG="en_GB.UTF-8"
+#unset LC_ALL
 #export LC_IDENTIFICATION=""            # Metadata about the locale information
 #export LC_ADRESS="en_US.ISO-8859-1"    # Adress formats & location information
 #export LC_CTYPE="en_US.ISO-8859-1"     # Upper/lowercase conversion
@@ -65,13 +61,12 @@ unset LC_ALL
 #export LC_PAPER="de_DE"                # Paper size
 #export LC_TELEPHONE="de_DE"            # Telephone number format
 #export LC_TIME="de_DE"                 # How to print time (24/12 hour clock)
-export PAPERSIZE='A4'
-export LESSCHARSET="utf-8"              # Make less display unicode                           
+#export PAPERSIZE='A4'
+#export LESSCHARSET="utf-8"             # Make less display unicode
 #export LESSCHARSET="latin9"            # Make less display iso-8859-15
-#export MM_CHARSET="iso-8859-15"        # Used by MUA I don't use. Sheesh.
 
 # Allow users to talk/wall to my tty
-mesg y
+#/usr/bin/mesg y
 
 # -rw-r--r--
 # drwxrwxr-x
@@ -193,6 +188,9 @@ setopt APPEND_HISTORY HIST_FCNTL_LOCK HIST_IGNORE_DUPS
 setopt HIST_IGNORE_SPACE HIST_REDUCE_BLANKS
 
 setopt CORRECT DVORAK
+
+# pyflakes
+export PYTHONPATH="$HOME/.vim/bundle/pyflakes-vim/ftplugin/python/pyflakes"
 
 #####################################
 ## Lines configured by zsh-newuser-install

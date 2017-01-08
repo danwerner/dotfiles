@@ -1,4 +1,7 @@
-#!/bin/sh
+#
+# danwerner's Bash configuration
+# Unmaintained - superseded by .zshrc
+#
 
 # If the admin prefers the better-looking way
 [ -f /etc/bashrc ] && source /etc/bashrc
@@ -30,10 +33,10 @@ export DEBEMAIL="$EMAIL"
 # cd to dirs in . or projects
 #export CDPATH="/home/projects/"
 
-# Locale information
-export LANGUAGE="en_GB:en"	# Python doesn't parse this correctly
-export LANG="en_GB.UTF-8"
-unset LC_ALL
+# Locale information (disabled, should preferably be set by the OS)
+#export LANGUAGE="en_GB:en"	# Python doesn't parse this correctly
+#export LANG="en_GB.UTF-8"
+#unset LC_ALL
 #export LC_IDENTIFICATION=""		# Metadata about the locale information
 #export LC_ADRESS="en_US.ISO-8859-1"	# Adress formats & location information
 #export LC_CTYPE="en_US.ISO-8859-1"	# Upper/lowercase conversion
@@ -51,14 +54,11 @@ export LESSCHARSET="utf-8"		# Make less display unicode
 #export LESSCHARSET="latin9"		# Make less display iso-8859-15
 #export MM_CHARSET="iso-8859-15"	# Used by MUA I don't use. Sheesh.
 
-# Why?
-unset USERNAME
-
 # Users generally won't see annoying core files
 [ "$UID" = "0" ] && ulimit -S -c 1000000 >/dev/null 2>&1
 
 # Allow users to talk/wall to my tty
-/usr/bin/mesg y
+#/usr/bin/mesg y
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
