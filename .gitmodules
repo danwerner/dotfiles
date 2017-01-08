@@ -19,3 +19,6 @@
 [submodule ".vim/bundle/scss-syntax.vim"]
 	path = .vim/bundle/scss-syntax.vim
 	url = https://github.com/cakebaker/scss-syntax.vim
+[submodule ".vim/bundle/Better-CSS-Syntax-for-Vim"]
+	path = .vim/bundle/Better-CSS-Syntax-for-Vim
+	url = https://github.com/chrisyip/Better-CSS-Syntax-for-Vim
