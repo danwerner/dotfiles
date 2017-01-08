@@ -28,3 +28,6 @@
 [submodule ".vim/bundle/pythoncomplete"]
 	path = .vim/bundle/pythoncomplete
 	url = https://github.com/mjbrownie/pythoncomplete.vim.git
+[submodule ".vim/bundle/vim-pathogen"]
+	path = .vim/bundle/vim-pathogen
+	url = git://github.com/tpope/vim-pathogen
