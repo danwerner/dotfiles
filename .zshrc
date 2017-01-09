@@ -20,12 +20,23 @@ fi
 
 export PS2='  %B>%b '
 
+#####################################
+## Configuration specific to this local machine - pre
+localrc_pre=$HOME/.zsh/local-pre
+[ -r $localrc_pre ] && source $localrc_pre
+
+warn_var_unset() {
+  echo >&2 "WARNING: Variable \$$1 is not set, should be set in ~/.zsh/local-pre"
+}
+
+[ -z $EMAIL ] && warn_var_unset EMAIL
+[ -z $PROJECTS ] && warn_var_unset PROJECTS
+
 ################################
 ## Variables
 
 export PATH="$HOME/bin:$HOME/.cabal/bin:$PATH"
 
-export EMAIL="daniel.d.werner@gmail.com"
 export MAIL="$HOME/mail/inbox"
 export MAILPATH="$MAIL:/var/mail/$USER"
 unset MAILCHECK
@@ -196,11 +207,16 @@ setopt CORRECT DVORAK
 export PYTHONPATH="$HOME/.vim/bundle/pyflakes-vim/ftplugin/python/pyflakes"
 
 # virtualenvwrapper
-export WORKON_HOME=$HOME/.virtualenvs
-export PROJECT_HOME=$HOME/Devel
-export VIRTUALENVWRAPPER_SCRIPT=$HOME/Library/Python/2.7/bin/virtualenvwrapper.sh
-source $VIRTUALENVWRAPPER_SCRIPT
-
+if [ -n "$VIRTUALENVWRAPPER_SCRIPT" ]; then
+  export WORKON_HOME=$HOME/.virtualenvs
+  export PROJECT_HOME=$PROJECTS
+  source $VIRTUALENVWRAPPER_SCRIPT
+else
+  workon() {
+    echo >&2 'Variable $VIRTUALENVWRAPPER_SCRIPT must be set for virtualenvwrapper to work'
+    false
+  }
+fi
 
 ###########################################
 ## Oh-My-ZSH
@@ -225,10 +241,9 @@ bindkey -e
 # End of lines configured by zsh-newuser-install
 #
 
-# Read configuration specific to this local machine
-#
-# Environment variables that should be set locally:
-#   EMAIL DEBEMAIL
-#
-localrc=$HOME/.zshrc.local
-[ -r $localrc ] && source $localrc
+#####################################
+## Configuration specific to this local machine - post
+localrc_post=$HOME/.zsh/local-post
+[ -r $localrc_post ] && source $localrc_post
+
+true

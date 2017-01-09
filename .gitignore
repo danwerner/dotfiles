@@ -7,3 +7,5 @@
 /.vim/bundle.disabled/
 /.vim/sessions
 /.vim/undodir
+
+/.zsh/local-*
