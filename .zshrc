@@ -221,6 +221,7 @@ fi
 ###########################################
 ## Oh-My-ZSH
 
+source $HOME/.zsh/oh-my-zsh-config
 source $ZSH/oh-my-zsh.sh
 
 ###########################################
