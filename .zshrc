@@ -118,8 +118,7 @@ alias cp='cp -i'
 alias apack='apack -v'
 alias aunpack='aunpack -v'
 
-alias gst='git status'
-alias gstl='git status | less'
+alias zshrc="$EDITOR ~/.zshrc"
 
 # Pipe less data through lesspipe first. This will activate extra
 # features like displaying rpm/deb-packages ...
@@ -190,8 +189,30 @@ setopt HIST_IGNORE_SPACE HIST_REDUCE_BLANKS
 
 setopt CORRECT DVORAK
 
+###########################################
+## Python
+
 # pyflakes
 export PYTHONPATH="$HOME/.vim/bundle/pyflakes-vim/ftplugin/python/pyflakes"
+
+# virtualenvwrapper
+export WORKON_HOME=$HOME/.virtualenvs
+export PROJECT_HOME=$HOME/Devel
+export VIRTUALENVWRAPPER_SCRIPT=$HOME/Library/Python/2.7/bin/virtualenvwrapper.sh
+source $VIRTUALENVWRAPPER_SCRIPT
+
+
+###########################################
+## Oh-My-ZSH
+
+source $ZSH/oh-my-zsh.sh
+
+###########################################
+## Overrides after Oh-My-ZSH
+
+# Aliases (conflict with OMZ plugins)
+alias grbm='git rebase origin/master'
+alias gunwip='git log -n 1 | grep -q -c "WIP" && git reset HEAD~1'
 
 #####################################
 ## Lines configured by zsh-newuser-install

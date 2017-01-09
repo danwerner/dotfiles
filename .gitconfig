@@ -7,8 +7,9 @@
 [alias]
 	co = checkout
 	index = diff --cached
-	log = log --decorate
+	logd = log --decorate
 	amend = commit --amend -C HEAD
+
 [apply]
 	whitespace = nowarn
 
