@@ -2,7 +2,7 @@
 # danwerner's ZSH configuration
 #
 
-# No %*$(#& audible bell!!
+# No audible bell!!
 setopt nobeep
 
 ################################
@@ -12,13 +12,13 @@ setopt nobeep
 #promptinit
 #prompt suse
 
-if autoload -U colors && colors; then
-	export PS1="%{$fg[blue]%}%B%n@%m %~ %%%b%{$reset_colors%} "
-else
-	export PS1='%B%n@%m %~ %%%b '
-fi
+#if autoload -U colors && colors; then
+#	export PS1="%{$fg[blue]%}%B%n@%m %~ %%%b%{$reset_colors%} "
+#else
+#	export PS1='%B%n@%m %~ %%%b '
+#fi
 
-export PS2='  %B>%b '
+#export PS2='  %B>%b '
 
 #####################################
 ## Configuration specific to this local machine - pre
@@ -199,6 +199,13 @@ setopt APPEND_HISTORY HIST_FCNTL_LOCK HIST_IGNORE_DUPS
 setopt HIST_IGNORE_SPACE HIST_REDUCE_BLANKS
 
 setopt CORRECT DVORAK
+
+###########################################
+## IntelliJ IDEA and PyCharm
+
+# Because of bug IDEA-78860
+# https://youtrack.jetbrains.com/issue/IDEA-78860
+export IBUS_ENABLE_SYNC_MODE=1
 
 ###########################################
 ## Python
