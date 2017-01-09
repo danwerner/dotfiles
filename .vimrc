@@ -24,6 +24,16 @@ if has("autocmd")
   filetype indent on
 endif
 
+" Persistent undo
+set undofile
+set undodir=$HOME/.vim/undodir
+
+au BufWritePre /tmp/* setlocal noundofile
+au BufWritePre $HOME/tmp/* setlocal noundofile
+
+" Activate changes to .vimrc immediately
+autocmd BufWritePost ~/.vimrc source ~/.vimrc
+
 " Highlight NBSP
 " --------------
 "  wanna see them
@@ -54,19 +64,26 @@ let maplocalleader="\\"
 
 " Preferences
 set shortmess=filmnrxOsI
-"set ignorecase				" case insens. search
-set history=100
+set ignorecase			" case insensitive search
+set history=1000
+set undolevels=1000
 "set confirm
 set clipboard+=unnamed
 set ffs=unix,dos,mac		" order is significant
 set iskeyword+=_,$,@,%,#,-
 
+" wildmenu (enables a small menu with all completion suggestions)
+set wildmenu
+set wildmode=list:longest,full
+set wildignore=*.swp,*.bak,*.pyc,*.class
 
 "Thank you FunnyMan3595
 "http://www.reddit.com/r/programming/comments/9wlb7/proggitors_do_you_like_the_idea_of_indented/c0esam1
 set list
 set lcs=tab:»·   "show tabs
 set lcs+=trail:· "show trailing spaces
+
+set showbreak=»»» 
 
 " Aides
 set showmatch			" show matching brackets
@@ -85,7 +102,8 @@ set wildmenu
 set ruler
 "set cmdheight=2
 set lazyredraw
-set hidden			" hide buffers instead of unloading them
+"set hidden			" hide buffers instead of unloading them
+				" (unnecessary since persistent undo)
 set backspace=2			" backspace=indent,eol, start
 set mouse=vhr			" visual, help, hit-r-prompts
 set report=0			" always report lines
@@ -99,6 +117,7 @@ nmap <C-H> :nohls<CR>
 
 " Files & Backups
 set nobackup
+set noswapfile
 set writebackup
 set directory=~/tmp,.,/var/tmp,/tmp
 
@@ -131,8 +150,10 @@ set nocindent			" cindent is NOT smart
 "set textwidth=78		" cause of too many problems
 set textwidth=0
 set wrap			" visual line wrapping (doesn't change buffer)
-set wrapmargin=0
+set wrapmargin=2
 "set joinspaces			" insert 2x' ' after .?! on join
+
+set title               " show title in window title
 
 " Pasting
 "set pastetoggle=<f11>
@@ -193,11 +214,11 @@ imap <S-Insert> <MiddleMouse>
 nmap Q gqap
 
 " aspell
-noremap <F7>    :w!<CR>:!aspell check %<CR>:e! %<CR>
+"noremap <F7>    :w!<CR>:!aspell check %<CR>:e! %<CR>
 
 " Programming
 "nmap    <F5>    :!sudo service apache2 restart<CR><CR>
-nmap    <F5>    :!touch lib/wsgi/mod_wsgi.py<CR><CR>
+"nmap    <F5>    :!touch lib/wsgi/mod_wsgi.py<CR><CR>
 nmap    <F9>    :make %<CR>
 nmap    <C-F9>  :make
 
