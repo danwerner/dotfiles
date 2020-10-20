@@ -3,48 +3,70 @@
 """renyme
 """
 
-import sys, os
-#env = os.environ
+import sys
+import os
+import re
 
 import optparse
 
+__version__ = '1.0.0'
+
+
+def log(message):
+    sys.stderr.write(message)
+    sys.stderr.write('\n')
+    sys.stderr.flush()
+
+
 def parse_cmdline():
     parser = optparse.OptionParser(
-        usage = 'renyme [-v] [-n] [-f] regexp [filename] ...',
-        version = '%prog ' + __version__)
+        usage='renyme [-qnf] regexp repl filename ...',
+        version='%prog ' + __version__)
 
-    parser.add_option('-v', '--verbose', type='bool', dest='verbose',
-        default=False, 'Print names of files successfully renamed.')
-    parser.add_option('-n', '--no-act', type='bool', dest='noact',
-        default=False, 'Only show what files would have been renamed.')
-    parser.add_option('-f', '--force', type='bool', dest='force',
-        default=False, 'Overwrite existing files.')
+    parser.add_option('-q', '--quiet', action='store_true', dest='quiet',
+        default=False, help='Do not print names of files successfully renamed.')
+    parser.add_option('-n', '--dry-run', action='store_true', dest='dry_run',
+        default=False, help='Only show what files would have been renamed.')
+    parser.add_option('-f', '--force', action='store_true', dest='force',
+        default=False, help='Overwrite existing files.')
 
     options, args = parser.parse_args()
 
-    # Always be verbose if we are just simulating.
-    if options.noact:
-        options.verbose = True
+    if len(args) < 3:
+        parser.print_usage(sys.stderr)
+        sys.exit(2)
 
     return options, args
 
+
 def main():
     options, args = parse_cmdline()
-    verbose, noact, force = options.verbose, options.noact, options.force
+    quiet, dry_run, force = options.quiet, options.dry_run, options.force
 
-    # XXX: Dirty -- use OptParse functionality instead.
-    regex, sourcenames = args[0], args[1:]
+    # TODO: Dirty, use ArgParse instead
+    regex, repl, source_names = args[0], args[1], args[2:]
 
-    if len(sourcenames) == 0:
-        sourcenames = sys.stdin
+    for old_name in source_names:
+        new_name = re.sub(regex, repl, old_name)
 
-        if verbose:
-            sys.stderr.write('No filenames given; reading from standard input instead.')
+        if new_name == old_name:
+            if not quiet:
+                log("Skipping '%s', as name wouldn't change")
+            continue
 
-    for oldname in sourcenames:
-        re.sub(regex, )
+        if not force and os.path.exists(new_name):
+            if not quiet:
+                log("Skipping '%s', as new name '%s' already exists" % (old_name, new_name))
+            continue
 
-    raise NotImplementedError('Script not yet functional')
+        if not quiet:
+            log("Renaming '%s' to '%s'" % (old_name, new_name))
+
+        if dry_run:
+            continue
+
+        os.rename(old_name, new_name)
+
 
 if __name__ == '__main__':
     main()
