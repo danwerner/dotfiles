@@ -1,11 +1,20 @@
+# General files
 *.pyc
 *.pyo
 *.o
 .netrwhist
 
+# General dirs
+tmp
+
+# Dot dirs
 /.cache
+/.virtualenvs
 /.vim/bundle.disabled/
 /.vim/sessions
 /.vim/undodir
 
-/.zsh/local-*
+/opt
+
+/.zsh/local-pre
+/.zsh/local-post

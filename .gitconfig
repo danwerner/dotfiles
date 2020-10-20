@@ -1,4 +1,5 @@
 [user]
+
 [color]
 	diff = auto
 	status = auto
@@ -7,7 +8,6 @@
 [alias]
 	co = checkout
 	index = diff --cached
-	logd = log --decorate
 	amend = commit --amend -C HEAD
 
 [apply]
@@ -21,3 +21,7 @@
 
 [gc]
 	pruneexpire = 30 days
+
+[credential]
+	# Mac OS X only
+	#helper = osxkeychain

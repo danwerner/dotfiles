@@ -1,12 +1,12 @@
 [submodule ".vim/bundle.disabled/syntastic"]
 	path = .vim/bundle/syntastic
-	url = http://github.com/scrooloose/syntastic.git
+	url = https://github.com/scrooloose/syntastic.git
 [submodule ".vim/bundle/pyflakes-vim"]
 	path = .vim/bundle/pyflakes-vim
-	url = http://github.com/kevinw/pyflakes-vim.git
+	url = https://github.com/kevinw/pyflakes-vim.git
 [submodule ".vim/bundle/vimclojure"]
 	path = .vim/bundle/vimclojure
-	url = http://github.com/kotarak/vimclojure.git
+	url = https://github.com/kotarak/vimclojure.git
 [submodule ".vim/bundle/vim-scala"]
 	path = .vim/bundle/vim-scala
 	url = https://github.com/derekwyatt/vim-scala.git
@@ -15,7 +15,7 @@
 	url = git://github.com/tpope/vim-fugitive.git
 [submodule ".emacs.d/undo-tree"]
 	path = .emacs.d/undo-tree
-	url = http://www.dr-qubit.org/git/undo-tree.git
+	url = https://www.dr-qubit.org/git/undo-tree.git
 [submodule ".vim/bundle/scss-syntax.vim"]
 	path = .vim/bundle/scss-syntax.vim
 	url = https://github.com/cakebaker/scss-syntax.vim
