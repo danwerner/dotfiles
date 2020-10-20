@@ -1,2 +1,2 @@
 #!/bin/sh
-find . \( -name '*.html' -o -name '*.mako' -o -name '*.pt' -o -name '*.jinja' \) -print0 | xargs -0 grep --color=auto "$@"
+find . \( -name '*.html' -o -name '*.mako' -o -name '*.pt' -o -name '*.jinja' -o -name '*.jade' -o -name '*.pug' \) -print0 | xargs -0 grep --color=auto "$@"
