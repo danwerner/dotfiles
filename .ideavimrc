@@ -1,0 +1,15 @@
+" IdeaVIM plugin configuration
+
+map gc :q<CR>
+
+set multiple-cursors
+
+map <C-N>  <A-N>
+map <C-P>  <A-P>
+map <C-X>  <A-X>
+map g<C-N> g<A-N>
+
+"map <C-N>  <Plug>NextWholeOccurence
+"map <C-P>  <Plug>RemoveOccurence
+"map <C-X>  <Plug>SkipOccurence
+"map g<C-N> <Plug>NextOccurence
