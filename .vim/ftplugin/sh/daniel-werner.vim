@@ -1,6 +1,6 @@
+" My personal sh/bash/zsh settings
 
-" My personal Bourne shell-specific settings
-set shiftwidth=4        " autoindent width
+set shiftwidth=2        " autoindent width
 set tabstop=8
 set softtabstop=4       " editing
 set expandtab           " tabs -> spaces

@@ -83,7 +83,7 @@ set list
 set lcs=tab:»·   "show tabs
 set lcs+=trail:· "show trailing spaces
 
-set showbreak=»»» 
+"set showbreak=»»» 
 
 " Aides
 set showmatch			" show matching brackets
@@ -118,7 +118,9 @@ nmap <C-H> :nohls<CR>
 " Files & Backups
 set nobackup
 set noswapfile
-set writebackup
+" Reactivate, but not for Mac!
+"set writebackup
+set nowritebackup
 set directory=~/tmp,.,/var/tmp,/tmp
 
 
@@ -225,6 +227,14 @@ nmap    <C-F9>  :make
 " Tabs
 nmap gn  :tabnew<CR>
 nmap gc  :tabc<CR>
+
+" Macros
+let @p = '^cwpick'
+let @s = '^cwsquash'
+let @f = '^cwfixup'
+let @r = '^cwreword'
+
+let @l = 's@//\s*@console.log("@s@$@");@'
 
 " Syntastic
 
