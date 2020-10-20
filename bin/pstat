@@ -1,0 +1,27 @@
+#!/usr/bin/env python
+
+"""
+Command line tool that prints a file's os.stat() values in a readable format.
+"""
+
+import sys
+import os
+
+from datetime import datetime
+
+
+def main(filename):
+    s = os.stat(filename)
+
+    for attr in dir(s):
+        if attr.startswith('st_'):
+            value = getattr(s, attr)
+
+            if attr.endswith('time'):
+                value = datetime.fromtimestamp(value)
+
+            print('{}: {}'.format(attr[len('st_'):], value))
+
+
+if __name__ == '__main__':
+    main(sys.argv[1])
