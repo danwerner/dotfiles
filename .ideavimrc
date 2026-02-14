@@ -4,10 +4,22 @@ map gc :q<CR>
 
 set multiple-cursors
 
-map <C-N>  <A-N>
-map <C-P>  <A-P>
-map <C-X>  <A-X>
-map g<C-N> g<A-N>
+" enable intelligent join via the IDE
+set ideajoin
+" clipboard to enable native IJ insertion in Vim
+set ideaput
+" Sync IJ bookmarks and Vim marks
+set ideamarks
+" don't change to select mode during refactoring
+"set idearefactormode=keep
+" disable IdeaVim in dialog editors
+set ideavimsupport=
+
+" Only needed on macOS X
+"map <C-N>  <A-N>
+"map <C-P>  <A-P>
+"map <C-X>  <A-X>
+"map g<C-N> g<A-N>
 
 "map <C-N>  <Plug>NextWholeOccurence
 "map <C-P>  <Plug>RemoveOccurence
