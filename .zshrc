@@ -5,21 +5,6 @@
 # No audible bell!!
 setopt nobeep
 
-################################
-## Prompt
-
-#autoload -U promptinit
-#promptinit
-#prompt suse
-
-#if autoload -U colors && colors; then
-#	export PS1="%{$fg[blue]%}%B%n@%m %~ %%%b%{$reset_colors%} "
-#else
-#	export PS1='%B%n@%m %~ %%%b '
-#fi
-
-#export PS2='  %B>%b '
-
 #####################################
 ## Configuration specific to this local machine - pre
 localrc_pre=$HOME/.zsh/local-pre
@@ -88,6 +73,11 @@ export TMOUT=0
 
 [ -r /etc/zsh_command_not_found ] && source /etc/zsh_command_not_found
 
+# Colorization of many commands using GRC
+if [ -e /usr/local/etc/grc.zshrc ]; then
+  . /usr/local/etc/grc.zshrc
+fi
+
 #############################
 ## Default Options
 
@@ -102,7 +92,14 @@ export ZIP="-9"
 # OpenOffice.org
 export OOO_FORCE_DESKTOP=gnome
 
-alias ls='ls -hpFv --color=auto'
+export LSCOLORS=Exfxcxdxbxegedabagacad
+
+if [[ `uname -s` = Darwin ]]; then
+  alias ls='ls -hpFv -G'
+else
+  alias ls='ls -hpFv --color=auto'
+fi
+
 alias l='ls -1'
 alias ll='ls -l'
 alias la='ls -a'
@@ -129,27 +126,24 @@ alias cp='cp -i'
 alias apack='apack -v'
 alias aunpack='aunpack -v'
 
-alias zshrc="$EDITOR ~/.zshrc"
+# Aliases
+alias zshreload="source ~/.zshrc && rehash"
+alias zshrc="vim -p ~/.zshrc ~/.zsh/*"
 
 # Pipe less data through lesspipe first. This will activate extra
 # features like displaying rpm/deb-packages ...
 [ -x /usr/bin/lesspipe ] && eval "$(lesspipe)"
 
-###########################################
-# Taken from Debian's default zshrc
-
-if [[ -f ~/.dir_colors ]]; then
-       eval `dircolors -b ~/.dir_colors`
-else
-       eval `dircolors -b /etc/DIR_COLORS`
+# Taken from Debian's default zshrc and modified
+if type dircolors >/dev/null; then
+  if [[ -f ~/.dir_colors ]]; then
+         eval `dircolors -b ~/.dir_colors`
+  elif [[ -f /etc/DIR_COLORS ]]; then
+         eval `dircolors -b /etc/DIR_COLORS`
+  fi
 fi
 
-zstyle ':completion:*:sudo:*' command-path /usr/local/sbin /usr/local/bin \
-                             /usr/sbin /usr/bin /sbin /bin /usr/X11R6/bin
-
-###########################################
 # Taken from Gentoo's default zshrc
-
 case $TERM in
     *xterm*|*rxvt*|screen)
             export mytitle="\e]0;%n@%m: %~\a"
@@ -188,6 +182,10 @@ zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p
 zstyle ':completion:*' squeeze-slashes true
 zstyle ':completion:*' substitute 1
 zstyle ':completion:*' verbose true
+
+zstyle ':completion:*:sudo:*' command-path /usr/local/sbin /usr/local/bin \
+                             /usr/sbin /usr/bin /sbin /bin /usr/X11R6/bin
+
 zstyle :compinstall filename '/home/daniel/.zshrc'
 
 autoload -Uz compinit
@@ -199,6 +197,12 @@ setopt APPEND_HISTORY HIST_FCNTL_LOCK HIST_IGNORE_DUPS
 setopt HIST_IGNORE_SPACE HIST_REDUCE_BLANKS
 
 setopt CORRECT DVORAK
+
+###########################################
+## Java, Scala
+
+# Prevents memory leak when e.g. reloading Play apps
+export SBT_OPTS="-XX:+CMSClassUnloadingEnabled"
 
 ###########################################
 ## IntelliJ IDEA and PyCharm
@@ -234,9 +238,73 @@ source $ZSH/oh-my-zsh.sh
 ###########################################
 ## Overrides after Oh-My-ZSH
 
-# Aliases (conflict with OMZ plugins)
+# Git aliases
 alias grbm='git rebase origin/master'
+alias grbd='git rebase origin/develop'
+alias grbo='git rebase origin/$(git rev-parse --abbrev-ref HEAD)'
+
+alias gi='git diff --cached'
+alias gad='git commit --amend -C HEAD'
+# same as ggsup
+alias gbu='git branch --set-upstream-to=origin/$(git_current_branch)'
+
+alias gsiu='git submodule init && git submodule update'
+
+alias gct='git commit-ticket'
+
+alias gf='git fetch --prune'
+alias gl='git pull --prune'
+alias gld='git pull-develop'
+
+alias gpf='git push --force-with-lease'
+
+alias glp='git log -p'
 alias gunwip='git log -n 1 | grep -q -c "WIP" && git reset HEAD~1'
+
+alias gbD='git branch -D'
+
+# git stash push was introduced in 2.13.0
+if [[ $(git --version | cut -d' ' -f3 | cut -d. -f2) -ge 13 ]]; then
+  alias gsta='git stash push'
+fi
+
+alias gstdrop='git stash drop'
+
+unalias gstd  # git stash drop
+unalias gstc  # git stash clear
+unalias gcr   # git checkout release
+
+# Docker aliases
+
+alias dis='docker images'
+alias dps='docker ps'
+alias dnls='docker network ls'
+
+alias dirm='docker image rm'
+alias dcrm='docker container rm'
+alias dnrm='docker network rm'
+
+alias diprune='docker image prune'
+alias dcprune='docker container prune'
+alias dnprune='docker network prune'
+
+alias drun='docker run -it --rm'
+alias dexec='docker exec -it'
+
+alias dci='docker container inspect'
+alias dii='docker image inspect'
+alias dvi='docker volume inspect'
+
+# Needs docker-container-ports to be in path
+alias dcp='docker-container-ports'
+
+alias dcdown='docker-compose down'
+
+###########################################
+## More aliases
+
+function j() { cd "$PROJECTS/$1" }
+
 
 #####################################
 ## Lines configured by zsh-newuser-install
@@ -254,4 +322,3 @@ bindkey -e
 localrc_post=$HOME/.zsh/local-post
 [ -r $localrc_post ] && source $localrc_post
 
-true

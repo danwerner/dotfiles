@@ -49,12 +49,11 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(bower brew brew-cask catimg colored-man-pages colorize command-not-found git heroku man mvn node npm sbt scala)
+plugins=(brew brew-cask capistrano catimg colored-man-pages colorize docker docker-compose gem git git-flow man node npm pip sbt scala vagrant)
 
 # Deactivated:
-# celery django pip virtualenv virtualenvwrapper vundle
+# bower celery command-not-found django heroku mvn virtualenv virtualenvwrapper vundle
 
 # May be interesting:
 # cabal coffee ubuntu lein gulp gradle
