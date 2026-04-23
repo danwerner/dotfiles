@@ -1,0 +1,63 @@
+{
+  "includeCoAuthoredBy": false,
+  "permissions": {
+    "allow": [
+      "Bash(brew search:*)",
+      "Bash(sbt:*)",
+      "Bash(cat:*)",
+      "Bash(ls:*)",
+      "Bash(grep:*)",
+      "Bash(rg:*)",
+      "Bash(find:*)",
+      "Bash(tail:*)",
+      "Bash(touch:*)",
+      "Bash(xargs cat:*)",
+      "Bash(java -version:*)",
+      "Bash(javac:*)",
+      "Bash(javap:*)",
+      "Bash(awk '{print $NF}')",
+      "Bash(echo \"EXIT: $?\")",
+      "Bash(git:*)",
+      "Bash(git fetch:*)",
+      "Bash(git status:*)",
+      "Bash(git diff:*)",
+      "Bash(git rev-parse:*)",
+      "Bash(git log:*)",
+      "Bash(git branch:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git checkout:*)",
+      "Bash(git stash:*)",
+      "Bash(git push:*)",
+      "Bash(unzip:*)",
+      "Bash(scalac:*)",
+      "Bash(scalafmt *)",
+      "Read(/Users/d.werner/.m2/**)",
+      "Read(/Users/d.werner/.ivy2/**)",
+      "Read(/Users/d.werner/.sbt/**)",
+      "Read(/Users/d.werner/Library/Caches/Coursier/**)",
+      "Read(/Users/d.werner/.cache/coursier/**)",
+      "Read(//tmp/**)",
+      "Read(//private/tmp/**)",
+      "WebSearch",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "WebFetch(domain:zio.dev)",
+      "WebFetch(domain:sttp.softwaremill.com)"
+    ],
+    "ask": []
+  },
+  "model": "opus[1m]",
+  "statusLine": {
+    "type": "command",
+    "command": "python3 ~/.claude/statusline.py",
+    "refreshInterval": 15
+  },
+  "enabledPlugins": {
+    "superpowers@claude-plugins-official": true
+  },
+  "alwaysThinkingEnabled": true,
+  "effortLevel": "high",
+  "skipDangerousModePermissionPrompt": true,
+  "skipAutoPermissionPrompt": true
+}
