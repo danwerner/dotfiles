@@ -1,0 +1,10 @@
+#!/usr/bin/env sh
+# Remove all SBT compile target directories from a Scala project
+
+if ! [[ -d project ]]; then
+  echo "Current directory should be an SBT directory, but no 'project' sub-directory found." >&2
+  exit 1
+fi
+
+find . -type d -name target
+find . -type d -name target | xargs rm -fR
