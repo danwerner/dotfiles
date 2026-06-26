@@ -22,20 +22,24 @@ setopt nobeep
 
 #####################################
 ## Configuration specific to this local machine - pre
-localrc_pre=$HOME/.zsh/local-pre
+local localrc_pre=$HOME/.zsh/local-pre
 [ -r $localrc_pre ] && source $localrc_pre
 
 warn_var_unset() {
-  echo >&2 "WARNING: Variable \$$1 is not set, should be set in ~/.zsh/local-pre"
+  echo >&2 "WARNING: Variable \$$1 is not set, should be set in $localrc_pre"
 }
 
+[ -z $DEFAULT_USER ] && warn_var_unset DEFAULT_USER
 [ -z $EMAIL ] && warn_var_unset EMAIL
 [ -z $PROJECTS ] && warn_var_unset PROJECTS
 
 ################################
 ## Variables
 
-export PATH="$HOME/bin:$HOME/.cabal/bin:$PATH"
+export PATH="$HOME/bin:$PATH"
+
+# Claude
+export PATH="$HOME/.local/bin:$PATH"
 
 export MAIL="$HOME/mail/inbox"
 export MAILPATH="$MAIL:/var/mail/$USER"
@@ -102,21 +106,10 @@ export ZIP="-9"
 # OpenOffice.org
 export OOO_FORCE_DESKTOP=gnome
 
-alias ls='ls -hpFv --color=auto'
-alias l='ls -1'
-alias ll='ls -l'
-alias la='ls -a'
-alias lla='la -l'
-alias lld='ll -d'
-# From pysh
-alias lk='ll | grep ^l'
-
-alias grep='grep --color=auto'
-
 alias vi='vim'
 alias startx='startx 2>$HOME/.startx.log'
 alias lynx='lynx -cfg $HOME/.lynxcfg'
-alias bc='bc --quiet'
+alias bc='bc -l --quiet'
 alias pstree='pstree -hlG'
 
 # Fault tolerance
@@ -129,7 +122,7 @@ alias cp='cp -i'
 alias apack='apack -v'
 alias aunpack='aunpack -v'
 
-alias zshrc="$EDITOR ~/.zshrc"
+alias zshrc="$EDITOR ~/.zshrc && exec zsh"
 
 # Pipe less data through lesspipe first. This will activate extra
 # features like displaying rpm/deb-packages ...
@@ -138,10 +131,12 @@ alias zshrc="$EDITOR ~/.zshrc"
 ###########################################
 # Taken from Debian's default zshrc
 
-if [[ -f ~/.dir_colors ]]; then
-       eval `dircolors -b ~/.dir_colors`
-else
-       eval `dircolors -b /etc/DIR_COLORS`
+if which dircolors >/dev/null; then
+  if [[ -f ~/.dir_colors ]] && ; then
+    eval `dircolors -b ~/.dir_colors`
+  else
+    eval `dircolors -b /etc/DIR_COLORS`
+  fi
 fi
 
 zstyle ':completion:*:sudo:*' command-path /usr/local/sbin /usr/local/bin \
@@ -201,6 +196,37 @@ setopt HIST_IGNORE_SPACE HIST_REDUCE_BLANKS
 setopt CORRECT DVORAK
 
 ###########################################
+# Commands
+
+autoload -U zmv
+alias zmv='noglob zmv'
+
+typeset -A PROJECT_ALIASES
+# Override in ~/.zsh/local-post !
+PROJECT_ALIASES=()
+
+# Jump to project
+#
+# Usage: p [project_alias | project_directory]
+p() {
+  # look up $1 in PROJECT_ALIASES, fallback to $1 itself if not found
+  local target=${PROJECT_ALIASES[$1]:-$1}
+  cd "$PROJECTS/$target"
+}
+
+# completion
+_p_projects() {
+  # combine keys of the alias array and real dirs under $PROJECT_ALIASES
+  local -a keys dirs
+  keys=(${(k)PROJECT_ALIASES})
+  dirs=(${=PROJECTS}/*(/:t))
+  compadd -- $keys $dirs
+}
+compdef _p_projects p
+
+alias vimai='vim -p ~/.claude/CLAUDE.md ~/Projects/CLAUDE.md'
+
+###########################################
 ## IntelliJ IDEA and PyCharm
 
 # Because of bug IDEA-78860
@@ -211,7 +237,7 @@ export IBUS_ENABLE_SYNC_MODE=1
 ## Python
 
 # pyflakes
-export PYTHONPATH="$HOME/.vim/bundle/pyflakes-vim/ftplugin/python/pyflakes"
+#export PYTHONPATH="$HOME/.vim/bundle/pyflakes-vim/ftplugin/python/pyflakes"
 
 # virtualenvwrapper
 if [ -n "$VIRTUALENVWRAPPER_SCRIPT" ]; then
@@ -226,17 +252,86 @@ else
 fi
 
 ###########################################
+## Node.js
+
+[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && . "/opt/homebrew/opt/nvm/nvm.sh"
+
+###########################################
+## Scala
+
+export SBT_OPTS="-Xms512M -Xmx5G -Xss16M"
+
+###########################################
+## Mac OSX
+
+if [ "`uname`" = Darwin ]; then
+fi
+
+###########################################
 ## Oh-My-ZSH
 
 source $HOME/.zsh/oh-my-zsh-config
 source $ZSH/oh-my-zsh.sh
 
 ###########################################
-## Overrides after Oh-My-ZSH
+## Homebrew
 
-# Aliases (conflict with OMZ plugins)
-alias grbm='git rebase origin/master'
+# Brew
+if which brew >/dev/null; then
+  export HOMEBREW_NO_ENV_HINTS=1
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
+
+###########################################
+## The Fuck
+
+if which thefuck >/dev/null; then
+  eval $(thefuck --alias)
+fi
+
+###########################################
+## Aliases
+## (after Oh-My-ZSH so we can override)
+
+# -p would give dir/, and -F would give dir/ link@ pipe| etc.
+alias ls='ls -hv --color=auto'
+alias l='ls -1'
+alias ll='ls -l'
+alias la='ls -a'
+
+alias grep='grep  --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn,.idea}'
+
+alias gid='git diff --cached'
+alias gamd='git commit --amend --no-edit'
+
+# Aliases that potentially conflict with OMZ plugins
+alias grbi='git rebase -i --autostash --autosquash'
+alias grbo='git rebase --autostash --autosquash origin/HEAD'
+alias grbio='git rebase -i --autostash --autosquash origin/HEAD'
+
+alias gpf='git push --force-with-lease'
+alias gpu='git push --set-upstream origin $(git_current_branch)'  # like 'gpsup'
+
+alias gf='git fetch --prune'
+
+alias gfu='git commit --fixup'
+
+alias gff='git merge --ff-only'
+
+# Aliases that also work in PowerShell
+alias gpp='git push'  # instead of gp
+alias gll='git pull'  # instead of gl
+
 alias gunwip='git log -n 1 | grep -q -c "WIP" && git reset HEAD~1'
+
+# Shorter aliases than Oh-My-ZSH provides
+alias gt='git worktree'
+alias gta='git worktree add'
+alias gtl='git worktree list'
+alias gtr='git worktree remove'
+
+# Force-delete
+alias gbD='git branch -D'
 
 #####################################
 ## Lines configured by zsh-newuser-install
@@ -251,7 +346,7 @@ bindkey -e
 
 #####################################
 ## Configuration specific to this local machine - post
-localrc_post=$HOME/.zsh/local-post
+local localrc_post=$HOME/.zsh/local-post
 [ -r $localrc_post ] && source $localrc_post
 
 true

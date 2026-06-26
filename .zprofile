@@ -1,4 +1,5 @@
 # ~/.profile: executed by all sh(1)-compatible shells
+# vi: set sts=2 sw=2 et :
 
 # the default umask is set in /etc/login.defs
 #umask 002
@@ -8,7 +9,3 @@ if [ -f /etc/debian_chroot ]; then
 	debian_chroot=`cat /etc/debian_chroot`
 fi
 
-# Show entries for next 7 and past 1 day(s)
-[ -e ~/.calendar ] && calendar -A 7 -B 1
-
-date

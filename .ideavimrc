@@ -3,14 +3,26 @@
 " You can find a list of commands here: https://jb.gg/h38q75
 " Find more examples here: https://jb.gg/share-ideavimrc
 
+set VimEverywhere
 
-"" -- Suggested options --
+" YouCompleteMe popup
+" Cycle the popup with Tab / S-Tab — normal tabbing stays untouched when no popup is open.
+set youcompleteme 
+
+" -- Suggested options --
 " Show a few lines of context around the cursor. Note that this makes the
 " text scroll if you mouse-click near the start or end of the window.
 "set scrolloff=5
 
 " Do incremental searching.
 set incsearch
+
+" The 'inccommand' option previews :s replacements as you type the command —
+" and quietly reverts everything if you bail out with Esc.
+" set inccommand=nosplit  " preview inline, in the buffer
+" set inccommand=split    " inline preview + a window listing
+"                         " every affected line
+set inccommand=nosplit
 
 " Don't use Ex mode, use Q for formatting.
 map Q gq
@@ -21,7 +33,14 @@ map Q gq
 Plug 'machakann/vim-highlightedyank'
 " Commentary plugin
 Plug 'tpope/vim-commentary'
-
+" Welle's beloved targets.vim
+" cin)   " change inside the NEXT ( )
+" da,    " delete an argument, comma and all
+" ci"    " change inside the nearest quotes, even
+"        " if the cursor isn't on them yet
+" Pairs, quotes, separators, arguments and tags — with i/a/I/A modifiers
+" and n/l next/last qualifiers.
+Plug 'wellle/targets.vim'
 
 "" -- Map IDE actions to IdeaVim -- https://jb.gg/abva4t
 "" Map \r to the Reformat Code action
