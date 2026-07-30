@@ -43,12 +43,25 @@ def main():
     else:
         five_h_label = f"5h {fmt(five_h)}"
 
+    seven_d_data = limits.get("seven_day") or {}
+    seven_d_reset_at = seven_d_data.get("resets_at")
+    if seven_d_reset_at:
+        seven_d_reset_str = datetime.fromtimestamp(seven_d_reset_at).strftime("%a %-H:%M")
+        seven_d_label = f"7d {fmt(seven_d)} ↻{seven_d_reset_str}"
+    else:
+        seven_d_label = f"7d {fmt(seven_d)}"
+
     import re
-    model = (ctx.get("model") or {}).get("display_name", "")
+    model_obj = ctx.get("model") or {}
+    model = model_obj.get("display_name", "")
     model_label = re.sub(r"\((\S+)\s+context\)", r"[\1]", model)
 
+    effort = (ctx.get("effort") or {}).get("level")
+    if effort:
+        model_label = f"{model_label} {effort}".strip()
+
     ctx_label = f"Ctx {fmt(ctx_pct)} {fmt_tokens(total_tokens)}"
-    parts = [p for p in [model_label, ctx_label, five_h_label, f"7d {fmt(seven_d)}"] if p]
+    parts = [p for p in [model_label, ctx_label, five_h_label, seven_d_label] if p]
     print(" | ".join(parts))
 
 if __name__ == "__main__":
