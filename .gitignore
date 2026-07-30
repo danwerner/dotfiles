@@ -9,3 +9,5 @@
 /.vim/undodir
 
 /.zsh/local-*
+
+.DS_Store
