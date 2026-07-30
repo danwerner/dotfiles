@@ -50,9 +50,11 @@ export DEBEMAIL="$EMAIL"
 
 export EDITOR="vim"
 export VISUAL="vim"
-export MAILREADER="mutt"
-export BROWSER="lynx"
 export PAGER="less"
+
+# Leave them undefined so that the OS-configured ones are used
+#export MAILREADER=
+#export BROWSER=
 
 
 ## Proxy settings
@@ -122,7 +124,8 @@ alias cp='cp -i'
 alias apack='apack -v'
 alias aunpack='aunpack -v'
 
-alias zshrc="$EDITOR ~/.zshrc && exec zsh"
+# Edit startup files, then reload the shell
+alias zshrc="vim -p ~/.zshrc ~/.zsh/local-pre ~/.zsh/local-post && exec zsh"
 
 # Pipe less data through lesspipe first. This will activate extra
 # features like displaying rpm/deb-packages ...
@@ -224,7 +227,7 @@ _p_projects() {
 }
 compdef _p_projects p
 
-alias vimai='vim -p ~/.claude/CLAUDE.md ~/Projects/CLAUDE.md'
+alias vimai='vim -p ~/.claude/CLAUDE.md ~/Projects/CLAUDE.md ~/.claude/CLAUDE.more.md ~/.claude/CLAUDE.dont-use.md'
 
 ###########################################
 ## IntelliJ IDEA and PyCharm
@@ -293,6 +296,8 @@ fi
 ## Aliases
 ## (after Oh-My-ZSH so we can override)
 
+### Basic
+
 # -p would give dir/, and -F would give dir/ link@ pipe| etc.
 alias ls='ls -hv --color=auto'
 alias l='ls -1'
@@ -300,6 +305,8 @@ alias ll='ls -l'
 alias la='ls -a'
 
 alias grep='grep  --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn,.idea}'
+
+### Git
 
 alias gid='git diff --cached'
 alias gamd='git commit --amend --no-edit'
@@ -332,6 +339,10 @@ alias gtr='git worktree remove'
 
 # Force-delete
 alias gbD='git branch -D'
+
+### GitHub
+
+alias ghpw='gh pr view -w'
 
 #####################################
 ## Lines configured by zsh-newuser-install
