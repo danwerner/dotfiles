@@ -2,6 +2,16 @@
 import sys, json
 from datetime import datetime
 
+# Claude Code omits a rate-limit window from the statusline payload once that
+# window's reset time has passed and no API response has reported the new window
+# yet. Nothing is used in a lapsed window, so report it as zero, not as unknown.
+LAPSED_WINDOW_PCT = 0
+
+# Plan rate limits do not apply to API key, Bedrock and Vertex sessions, nor to a
+# profile lacking the usage scope. Claude Code then reports no windows at all, and
+# there is no percentage to state -- as opposed to a window that merely lapsed.
+LIMITS_UNAVAILABLE_PCT = "--"
+
 def main():
     try:
         ctx = json.loads(sys.stdin.read())
@@ -32,9 +42,15 @@ def main():
         return str(n)
 
     limits = ctx.get("rate_limits") or {}
+    missing_pct = (
+        LAPSED_WINDOW_PCT
+        if ctx.get("rate_limits_available", True)
+        else LIMITS_UNAVAILABLE_PCT
+    )
+
     five_h_data = limits.get("five_hour") or {}
-    five_h = five_h_data.get("used_percentage", "--")
-    seven_d = (limits.get("seven_day") or {}).get("used_percentage", "--")
+    five_h = five_h_data.get("used_percentage", missing_pct)
+    seven_d = (limits.get("seven_day") or {}).get("used_percentage", missing_pct)
 
     resets_at = five_h_data.get("resets_at")
     if resets_at:
