@@ -1,14 +1,29 @@
 [user]
-[color]
-	diff = auto
-	status = auto
-	branch = auto
+	name = Daniel Werner
+	useConfigOnly = true
 
-[alias]
-	co = checkout
-	index = diff --cached
-	logd = log --decorate
-	amend = commit --amend -C HEAD
+[include]
+	path = ~/.gitconfig.local
+
+[init]
+	defaultBranch = main
+
+# GitHub/Primer Protanopia/Deuteranopia theme
+# Only 'success' (light blue) colors active, because
+# 'danger' (orange) is harder to read than the original red
+[color "diff"]
+	new = "#0969DA"
+	#old = "#BC4C00"
+	newMoved = "#0969DA"
+	#oldMoved = "#BC4C00"
+[color "status"]
+	added = "#0969DA"
+	updated = "#0969DA"
+	#changed = "#BC4C00"
+	#untracked = "#BC4C00"
+	#unmerged = "#BC4C00"
+[color]
+	ui = auto
 
 [apply]
 	whitespace = nowarn
@@ -20,4 +35,4 @@
 	conflictstyle = diff3
 
 [gc]
-	pruneexpire = 30 days
+	#pruneexpire = 30 days
