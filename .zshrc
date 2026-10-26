@@ -94,6 +94,12 @@ export TMOUT=0
 
 [ -r /etc/zsh_command_not_found ] && source /etc/zsh_command_not_found
 
+#####################################
+## Functions
+
+. ~/.zsh/functions
+
+
 #############################
 ## Default Options
 
@@ -125,7 +131,7 @@ alias apack='apack -v'
 alias aunpack='aunpack -v'
 
 # Edit startup files, then reload the shell
-alias zshrc="vim -p ~/.zshrc ~/.zsh/local-pre ~/.zsh/local-post && exec zsh"
+alias zshrc="vim -p ~/.zshrc ~/.zsh/local-pre ~/.zsh/local-post"
 
 # Pipe less data through lesspipe first. This will activate extra
 # features like displaying rpm/deb-packages ...
@@ -227,7 +233,7 @@ _p_projects() {
 }
 compdef _p_projects p
 
-alias vimai='vim -p ~/.claude/CLAUDE.md ~/Projects/CLAUDE.md ~/.claude/CLAUDE.more.md ~/.claude/CLAUDE.dont-use.md'
+alias vimai='vim -p ~/.claude/CLAUDE.md ~/Projects/CLAUDE.md ~/.claude/CLAUDE.more.md ~/.claude/CLAUDE.more-from-ai.md ~/.claude/CLAUDE.dont-use.md ~/.codex/AGENTS.md'
 
 ###########################################
 ## IntelliJ IDEA and PyCharm
@@ -312,6 +318,7 @@ alias gid='git diff --cached'
 alias gamd='git commit --amend --no-edit'
 
 # Aliases that potentially conflict with OMZ plugins
+
 alias grbi='git rebase -i --autostash --autosquash'
 alias grbo='git rebase --autostash --autosquash origin/HEAD'
 alias grbio='git rebase -i --autostash --autosquash origin/HEAD'
@@ -329,7 +336,7 @@ alias gff='git merge --ff-only'
 alias gpp='git push'  # instead of gp
 alias gll='git pull'  # instead of gl
 
-alias gunwip='git log -n 1 | grep -q -c "WIP" && git reset HEAD~1'
+alias gunwip='git log -n 1 | grep -q -c "WIP|--wip--" && git reset HEAD~1'
 
 # Shorter aliases than Oh-My-ZSH provides
 alias gt='git worktree'
@@ -338,11 +345,27 @@ alias gtl='git worktree list'
 alias gtr='git worktree remove'
 
 # Force-delete
-alias gbD='git branch -D'
+alias gbd='git branch -D'
+
+# git-is-rebased
+# Checks whether $2 is rebased on $1 (= is a descendent of $1)
+function gir() {
+  ancestor=${1:-origin/main}
+  descendent=${2:-HEAD}
+  git merge-base --is-ancestor "$ancestor" HEAD
+}
+
+# Aliases for functions
+alias gbda=git-branch-delete-all
 
 ### GitHub
 
+alias ghpm='gh pr merge --squash --delete-branch'
 alias ghpw='gh pr view -w'
+
+function ghpu() {
+  gh pr view --json url --jq .url "$@" | cat
+}
 
 #####################################
 ## Lines configured by zsh-newuser-install

@@ -11,17 +11,17 @@
 # GitHub/Primer Protanopia/Deuteranopia theme
 # Only 'success' (light blue) colors active, because
 # 'danger' (orange) is harder to read than the original red
-[color "diff"]
-	new = "#0969DA"
-	#old = "#BC4C00"
-	newMoved = "#0969DA"
-	#oldMoved = "#BC4C00"
-[color "status"]
-	added = "#0969DA"
-	updated = "#0969DA"
-	#changed = "#BC4C00"
-	#untracked = "#BC4C00"
-	#unmerged = "#BC4C00"
+#[color "diff"]
+#	new = "#0969DA"
+#	#old = "#BC4C00"
+#	newMoved = "#0969DA"
+#	#oldMoved = "#BC4C00"
+#[color "status"]
+#	added = "#0969DA"
+#	updated = "#0969DA"
+#	#changed = "#BC4C00"
+#	#untracked = "#BC4C00"
+#	#unmerged = "#BC4C00"
 [color]
 	ui = auto
 

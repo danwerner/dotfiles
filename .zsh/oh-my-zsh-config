@@ -42,7 +42,7 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 # Uncomment the following line if you want to change the command execution time
 # stamp shown in the history command output.
 # The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-# HIST_STAMPS="mm/dd/yyyy"
+HIST_STAMPS="yyyy-mm-dd"
 
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
@@ -51,12 +51,27 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(bower brew brew-cask catimg colored-man-pages colorize command-not-found git heroku man mvn node npm sbt scala)
+plugins=(aws catimg colored-man-pages colorize command-not-found grc man node npm z)
+
+[[ "`uname -s`" = "Darwin" ]] && plugins+=(osx macos)
+
+[[ "`uname -s`" = "Linux" ]] && [[ "`lsb_release -s -d`" = "Ubuntu" ]] && plugins+=(ubuntu)
+
+type brew >/dev/null && plugins+=(brew brew-cask)
+type git >/dev/null && plugins+=(git)
+type nvm >/dev/null && plugins+=(nvm)
+type mvn >/dev/null && plugins+=(mvn)
+type pip >/dev/null && plugins+=(pip)
+( type venv >/dev/null || type virtualenv >/dev/null) && plugins+=(virtualenv)
+
+# These don't turn out to be useful
+#type sbt >/dev/null && plugins+=(sbt)
+#(type scala >/dev/null || type scalac >/dev/null) && plugins+=(sbt)
 
 # Deactivated:
-# celery django pip virtualenv virtualenvwrapper vundle
+# bower celery django virtualenvwrapper vundle
 
 # May be interesting:
-# cabal coffee ubuntu lein gulp gradle
+# lein gulp gradle
 
 # vi: set ft=zsh :

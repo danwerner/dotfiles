@@ -1,0 +1,48 @@
+# ~/.zsh/functions
+# vi: set ft=zsh :
+
+git-branch-delete-all() {
+  git rev-parse --is-inside-work-tree >/dev/null 2>&1 || {
+    echo "Not inside a Git repository."
+    return 1
+  }
+
+  # Remove stale remote-tracking branches first.
+  git fetch --all --prune || return
+
+  local current_branch
+  current_branch=$(git branch --show-current)
+
+  local -A remote_branches
+  local branch
+
+  # Collect branch names from all configured remotes.
+  while IFS= read -r branch; do
+    remote_branches[$branch]=1
+  done < <(
+    git for-each-ref \
+      --format='%(refname:strip=3)' \
+      refs/remotes/
+  )
+
+  # Check every local branch.
+  while IFS= read -r branch; do
+    case "$branch" in
+      main|master|develop|dev)
+        continue
+        ;;
+    esac
+
+    # Can't delete the branch we're currently on.
+    [[ "$branch" == "$current_branch" ]] && continue
+
+    # Keep it if a branch of the same name exists on any remote.
+    [[ -n "${remote_branches[$branch]-}" ]] && continue
+
+    git branch -D -- "$branch"
+  done < <(
+    git for-each-ref \
+      --format='%(refname:short)' \
+      refs/heads/
+  )
+}
